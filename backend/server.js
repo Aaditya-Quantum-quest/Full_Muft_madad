@@ -7,6 +7,9 @@ const cookieParser = require("cookie-parser");
 const authRoutes = require('./routes/auth.routes')
 const cors = require('cors')
 const userReviewRoutes = require('./routes/userReview.routes');
+const AddTreatment = require('./routes/treatments.routes')
+const hospitalRoutes = require('./routes/hospitals.routes'); // ✅ added
+const doctorsRoutes = require('./routes/doctors.routes');
 
 
 const PORT = process.env.PORT || 4000
@@ -34,7 +37,12 @@ const authLimiter = rateLimit({
 
 
 app.use('/api/auth', authLimiter, authRoutes);
-app.use('/api/users/', userReviewRoutes)
+app.use('/api/users/', userReviewRoutes);
+app.use('/api/admin/', AddTreatment);
+app.use('/api/auth/', hospitalRoutes);
+app.use('/api/doctors', doctorsRoutes);
+
+
 
 
 const StartServer = () => {
